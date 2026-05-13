@@ -31,4 +31,5 @@ server_scripts {
 
 dependencies {
     '/onesync',  -- requires state awareness to be enabled
+    'es_extended',
 }
