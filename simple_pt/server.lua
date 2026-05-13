@@ -29,4 +29,4 @@ RegisterCommand('pt', function(source, args, rawCommand)
         GlobalState.peacetime = false
         TriggerClientEvent('pt:disabled', -1)
     end
-end, true)
+end, false)
