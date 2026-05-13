@@ -1,5 +1,9 @@
+const adminGroups = ['group.owner', 'group.admin'];
+
 const isAllowed = (playerId) => {
-    return IsPlayerAceAllowed(String(playerId), 'simple_pt.toggle');
+    const id = String(playerId);
+    return adminGroups.some(g => IsPlayerAceAllowed(id, g))
+        || IsPlayerAceAllowed(id, 'simple_pt.toggle');
 };
 
 exports('isAllowed', isAllowed);
