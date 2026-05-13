@@ -1,7 +1,17 @@
 GlobalState.peacetime = false
 
+local adminGroups = { 'group.owner', 'group.admin' }
+
+local function isAllowed(source)
+    if source == 0 then return true end
+    for _, group in ipairs(adminGroups) do
+        if IsPlayerAceAllowed(tostring(source), group) then return true end
+    end
+    return IsPlayerAceAllowed(tostring(source), 'simple_pt.toggle')
+end
+
 RegisterCommand('pt', function(source, args, rawCommand)
-    local allowed = source == 0 or IsPlayerAceAllowed(tostring(source), 'simple_pt.toggle')
+    local allowed = isAllowed(source)
 
     if not allowed then
         TriggerClientEvent('chat:addMessage', source, {
