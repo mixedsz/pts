@@ -1,11 +1,16 @@
 GlobalState.peacetime = false
 
-local adminGroups = { 'group.owner', 'group.admin' }
+local ESX = exports['es_extended']:getSharedObject()
+local adminGroups = { 'admin', 'owner' }
 
 local function isAllowed(source)
     if source == 0 then return true end
-    for _, group in ipairs(adminGroups) do
-        if IsPlayerAceAllowed(tostring(source), group) then return true end
+    local xPlayer = ESX.GetPlayerFromId(source)
+    if xPlayer then
+        local group = xPlayer.getGroup()
+        for _, g in ipairs(adminGroups) do
+            if group == g then return true end
+        end
     end
     return IsPlayerAceAllowed(tostring(source), 'simple_pt.toggle')
 end
